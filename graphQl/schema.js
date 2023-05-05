@@ -6,14 +6,16 @@ module.exports = graphQl.buildSchema(`
         name:String!
         quantity:Int!
     }
+    input ProductInputData{
+        name: String!
+        quantity: Int!
+    }
 
     type User{
         _id: ID!
         name: String!
         email: String!
         password: String!
-        status: String!
-        products: [Product!]!
     }
     type AuthData{
         token: String!
@@ -32,6 +34,7 @@ module.exports = graphQl.buildSchema(`
 
     type RootMutation{
         createUser(userInput: UserInputData) : User!
+        createProduct(productInput: ProductInputData) : Product!
     }
 
     type RootQuery{

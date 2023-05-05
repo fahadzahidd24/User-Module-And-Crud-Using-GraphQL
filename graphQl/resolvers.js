@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Product = require('../models/product');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
@@ -48,5 +49,21 @@ module.exports = {
         }
         const token = jwt.sign({userId: userFound._id, email: userFound.email}, "oiausdoiasudpaosidp0aiseq", {expiresIn: '1h'});
         return {token:token, userId: userFound._id};
+    },
+
+    createProduct: async function({productInput},req){
+        const productFound = await Product.findOne({name:productInput.name});
+        if(productFound){
+            const error = new Error('Product Already Exists');
+            error.code = 500;
+            throw error;
+        }
+        const product = new Product({
+            name: productInput.name,
+            quantity: productInput.quantity
+        })
+        const newProduct = await product.save();
+        return newProduct;
+
     }
 }
