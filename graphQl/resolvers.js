@@ -69,7 +69,11 @@ module.exports = {
 
     products: async function(args,req){
         const totalProducts = await Product.find().countDocuments();
-        const products = await Product.find().limit(args.limit);
+        if(!args.page){
+            args.page = 1;
+        }
+        const perPage = 2;
+        const products = await Product.find().skip((args.page-1)*perPage).limit(perPage);
         if(products)
             return {
                 totalProducts: totalProducts,

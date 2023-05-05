@@ -43,7 +43,7 @@ module.exports = graphQl.buildSchema(`
 
     type RootQuery{
         login(userLoginInput: UserLoginInputData): AuthData!
-        products(limit: Int): ProductData!
+        products(page: Int): ProductData!
     }
 
     schema{
