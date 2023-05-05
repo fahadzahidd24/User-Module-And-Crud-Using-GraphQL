@@ -10,6 +10,10 @@ module.exports = graphQl.buildSchema(`
         name: String!
         quantity: Int!
     }
+    type ProductData{
+        totalProducts: Int!
+        products: [Product!]!
+    }
 
     type User{
         _id: ID!
@@ -39,6 +43,7 @@ module.exports = graphQl.buildSchema(`
 
     type RootQuery{
         login(userLoginInput: UserLoginInputData): AuthData!
+        products(limit: Int): ProductData!
     }
 
     schema{

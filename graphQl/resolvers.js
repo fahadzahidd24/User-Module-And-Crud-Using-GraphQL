@@ -65,5 +65,15 @@ module.exports = {
         const newProduct = await product.save();
         return newProduct;
 
+    },
+
+    products: async function(args,req){
+        const totalProducts = await Product.find().countDocuments();
+        const products = await Product.find().limit(args.limit);
+        if(products)
+            return {
+                totalProducts: totalProducts,
+                products: products
+            }
     }
 }
